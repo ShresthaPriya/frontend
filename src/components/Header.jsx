@@ -39,28 +39,26 @@ export default function Header() {
 
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center gap-2">
-              {['Home', 'About Us', 'Team', 'Contact'].map((text, index) => (
-                <li className="nav-item" key={index}>
-                  <a
-                    className="nav-link text-white fw-medium px-3"
-                    href={`#${text.toLowerCase().replace(' ', '')}`}
-                    style={{
-                      transition: 'background-color 0.3s ease, color 0.3s ease',
-                      borderRadius: '6px',
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.backgroundColor = '#ffffff22';
-                      e.target.style.color = '#fff';
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = '#fff';
-                    }}
-                  >
-                    {text}
-                  </a>
-                </li>
-              ))}
+              <li className="nav-item">
+                <a className="nav-link text-white fw-medium px-3" href="#home">
+                  Home
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white fw-medium px-3" href="#about">
+                  About Us
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white fw-medium px-3" href="#team">
+                  Team
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white fw-medium px-3" href="#contacts">
+                  Contact
+                </a>
+              </li>
 
               <li className="nav-item">
                 <a
@@ -88,3 +86,4 @@ export default function Header() {
     </header>
   );
 }
+  

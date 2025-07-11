@@ -5,20 +5,40 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Full Name is required.";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email Address is required.";
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+    if (!formData.message.trim()) newErrors.message = "Message is required.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccess("");
+    if (!validate()) return;
     setLoading(true);
     try {
-      await axios.post("https://formspree.io/f/yourFormId", formData); // Replace with your Formspree endpoint
-      setSuccess("Message sent successfully!");
+      // Use jsonplaceholder for testing POST requests
+      await axios.post("https://jsonplaceholder.typicode.com/posts", formData);
+      setSuccess("Message sent successfully! (Test API)");
       setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSuccess(""), 3000); // Hide success message in 3 seconds
     } catch (error) {
-      setSuccess("Failed to send message. This service does not allow direct browser requests (CORS error).");
+      setSuccess("Failed to send message.");
+      setTimeout(() => setSuccess(""), 3000); // Hide error message in 3 seconds
     } finally {
       setLoading(false);
     }
@@ -61,10 +81,63 @@ export default function Contact() {
   ];
 
   return (
-    <section className="py-5" style={{ backgroundColor: "#f1f3f5" }}>
-      <div className="container">
+    <section
+      className="py-5"
+      style={{
+        background: 'linear-gradient(120deg, #e0f7fa 0%, #f8fafc 100%)',
+        minHeight: "100vh",
+        position: "relative",
+        overflow: "hidden"
+      }}
+      id="contacts"
+    >
+      {/* Decorative SVG Shape Top */}
+      <svg
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "120px",
+          zIndex: 0,
+          pointerEvents: "none"
+        }}
+        viewBox="0 0 1440 120"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,80 C480,160 960,0 1440,80 L1440,120 L0,120 Z"
+          fill="#6baed6"
+          opacity="0.12"
+        />
+      </svg>
+      <div
+        className="container"
+        style={{
+          position: "relative",
+          zIndex: 1,
+          paddingTop: "100px" // Add top padding to push content below the SVG
+        }}
+      >
         <div className="text-center mb-5">
-          <h2 className="display-4 fw-bold text-dark mb-3">Contact Us</h2>
+            <h2
+              className="display-4 fw-bold position-relative"
+              style={{ color: '#6baed6' }}
+            >
+              Contact Us
+              <span
+                style={{
+                  display: 'block',
+                  height: '4px',
+                  width: '80px',
+                  backgroundColor: '#6baed6',
+                  margin: '10px auto 0',
+                  borderRadius: '2px'
+                }}
+              ></span>
+            </h2>
           <p className="lead text-muted">Get in touch with us for any inquiries or collaborations</p>
         </div>
 
@@ -127,7 +200,9 @@ export default function Contact() {
                       <div className="form-floating">
                         <input
                           type="text"
-                          className="form-control form-control-lg"
+                          className={`form-control form-control-lg${
+                            errors.name ? " is-invalid" : ""
+                          }`}
                           id="name"
                           name="name"
                           placeholder="Full Name"
@@ -139,6 +214,7 @@ export default function Contact() {
                         <label htmlFor="name">
                           Full Name <span className="text-danger">*</span>
                         </label>
+                        {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                       </div>
                     </div>
 
@@ -146,7 +222,9 @@ export default function Contact() {
                       <div className="form-floating">
                         <input
                           type="email"
-                          className="form-control form-control-lg"
+                          className={`form-control form-control-lg${
+                            errors.email ? " is-invalid" : ""
+                          }`}
                           id="email"
                           name="email"
                           placeholder="Email Address"
@@ -158,13 +236,16 @@ export default function Contact() {
                         <label htmlFor="email">
                           Email Address <span className="text-danger">*</span>
                         </label>
+                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                       </div>
                     </div>
 
                     <div className="col-12">
                       <div className="form-floating">
                         <textarea
-                          className="form-control form-control-lg"
+                          className={`form-control form-control-lg${
+                            errors.message ? " is-invalid" : ""
+                          }`}
                           id="message"
                           name="message"
                           placeholder="Tell us about your project or inquiry..."
@@ -176,6 +257,7 @@ export default function Contact() {
                         <label htmlFor="message">
                           Message <span className="text-danger">*</span>
                         </label>
+                        {errors.message && <div className="invalid-feedback">{errors.message}</div>}
                       </div>
                     </div>
 
@@ -208,7 +290,27 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      {/* Decorative SVG Shape Bottom */}
+      <svg
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "80px",
+          zIndex: 0,
+        }}
+        viewBox="0 0 1440 80"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,40 C480,120 960,0 1440,40 L1440,80 L0,80 Z"
+          fill="#6baed6"
+          opacity="0.08"
+        />
+      </svg>
     </section>
   );
 }
-         

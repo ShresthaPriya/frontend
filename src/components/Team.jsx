@@ -8,15 +8,43 @@ export default function Team() {
   }, []);
 
   return (
-    <section className="py-5" style={{ backgroundColor: "#6baed6" }}>
-      <div className="container">
+    <section
+      className="py-5"
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(120deg, #e0f7fa 0%, #f8fafc 60%, #e0f7fa 100%)",
+        position: "relative",
+        overflow: "hidden"
+      }}
+      id="team"
+    >
+      
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div className="row">
           <div className="col-12 text-center mb-5">
-            <h2 className="display-4 fw-bold text-white" data-aos="fade-down">Our Team</h2>
-            <p className="lead text-light" data-aos="fade-up">Meet the talented individuals behind our success</p>
+           <h2
+              className="display-4 fw-bold position-relative"
+              style={{ color: '#6baed6' }}
+            >
+              Our Team
+              <span
+                style={{
+                  display: 'block',
+                  height: '4px',
+                  width: '80px',
+                  backgroundColor: '#6baed6',
+                  margin: '10px auto 0',
+                  borderRadius: '2px'
+                }}
+              ></span>
+            </h2>
+
+            <p className="lead text-dark mt-3" data-aos="fade-up">
+              Meet the talented individuals behind our success
+            </p>
+
           </div>
         </div>
-
         <div className="row g-4">
           {/* Team Member 1 */}
           <div className="col-lg-4 col-md-6" data-aos="fade-up">
@@ -34,12 +62,9 @@ export default function Team() {
                 <p className="text-primary fw-semibold">CEO</p>
                 <p className="text-muted">Leading the vision and strategy for innovative digital solutions.</p>
               </div>
-              <div className="card-footer bg-white border-0 text-center">
-                <button className="btn btn-primary btn-sm rounded-pill">View Profile</button>
-              </div>
+              
             </div>
           </div>
-
           {/* Team Member 2 */}
           <div className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div className="card h-100 shadow-lg border-0 rounded-4 transition hover-shadow">
@@ -56,12 +81,9 @@ export default function Team() {
                 <p className="text-primary fw-semibold">Creative Director</p>
                 <p className="text-muted">Crafting beautiful and intuitive user experiences that captivate audiences.</p>
               </div>
-              <div className="card-footer bg-white border-0 text-center">
-                <button className="btn btn-primary btn-sm rounded-pill">View Profile</button>
-              </div>
+              
             </div>
           </div>
-
           {/* Team Member 3 */}
           <div className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div className="card h-100 shadow-lg border-0 rounded-4 transition hover-shadow">
@@ -78,13 +100,12 @@ export default function Team() {
                 <p className="text-primary fw-semibold">Developer</p>
                 <p className="text-muted">Building robust and scalable applications with cutting-edge technology.</p>
               </div>
-              <div className="card-footer bg-white border-0 text-center">
-                <button className="btn btn-primary btn-sm rounded-pill">View Profile</button>
-              </div>
+              
             </div>
           </div>
         </div>
       </div>
+      
     </section>
   );
 }

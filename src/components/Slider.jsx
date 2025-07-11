@@ -1,4 +1,6 @@
 // components/Slider.js
+import { motion } from "framer-motion";
+
 export default function Slider() {
   return (
     <div id="heroSlider" className="carousel slide" data-bs-ride="carousel">
@@ -13,16 +15,105 @@ export default function Slider() {
       <div className="carousel-inner">
         {/* Slide 1 */}
         <div className="carousel-item active">
-          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=600&fit=crop" className="d-block w-100" alt="Innovation at Its Core" style={{height: '100vh', objectFit: 'cover'}} />
-          <div className="carousel-caption d-none d-md-block text-dark">
-            <h1 className="display-4 fw-bold text-dark">Welcome to Aakash Labs</h1>
-            <h3 className="h3 mb-3 text-dark">We build impactful digital experiences</h3>
-            <p className="lead">Creating innovative solutions for tomorrow's challenges</p>
-            <div className="mt-4">
-              <button className="btn btn-primary btn-lg me-3">Get Started</button>
-              <button className="btn btn-outline-light btn-lg">Learn More</button>
-            </div>
-          </div>
+          <motion.div
+            className="d-flex flex-column flex-md-row align-items-center justify-content-between"
+            style={{
+              height: '100vh',
+              background: "linear-gradient(120deg, #e0f7fa 0%, #f8fafc 100%)",
+              overflow: "hidden"
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          >
+            {/* Left: Text Content with Animation */}
+            <motion.div
+              className="p-5 flex-grow-1"
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+              style={{ zIndex: 2 }}
+            >
+              <h1 className="display-4 fw-bold mb-3">
+                <motion.span
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  style={{ color: "#6baed6", display: "inline-block" }}
+                >
+                  Welcome
+                </motion.span>{" "}
+                to Aakash Labs
+              </h1>
+              <motion.h3
+                className="h3 mb-3 text-dark"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                We build impactful digital experiences
+              </motion.h3>
+              <motion.p
+                className="lead"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                Creating innovative solutions for tomorrow's challenges
+              </motion.p>
+              <motion.div
+                className="mt-4 d-flex gap-3"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
+                <button className="btn btn-primary btn-lg">Get Started</button>
+                <button
+                  className="btn btn-outline-primary btn-lg"
+                  style={{
+                    borderColor: "#0d6efd",
+                    color: "#0d6efd",
+                    background: "rgba(255,255,255,0.85)"
+                  }}
+                >
+                  Learn More
+                </button>
+              </motion.div>
+            </motion.div>
+            {/* Right: Animated Image */}
+            <motion.div
+              className="flex-grow-1 d-flex justify-content-center align-items-center"
+              initial={{ y: -40, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2 }}
+              style={{
+                height: "100vh",
+                width: "100%",
+                paddingTop: "60px",
+                paddingBottom: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <motion.img
+                src={require("../images/vecteezy_landing-page-of-software-development-coding-process-concept_5424801.jpg")}
+                alt="Freelance working concept"
+                className="img-fluid"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.2, delay: 0.5 }}
+                style={{
+                  maxHeight: "75vh",
+                  objectFit: "contain",
+                  borderRadius: "0",
+                  background: "none",
+                  boxShadow: "none",
+                  marginTop: "40px"
+                }}
+              />
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Slide 2 */}
